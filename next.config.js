@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true
-  }
+  // App Router включен по умолчанию в Next.js 13+
 }
 
 module.exports = nextConfig
