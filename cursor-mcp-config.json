@@ -1,9 +1,0 @@
-{
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem", "C:\\Users\\Kairat\\Desktop\\Neiro\\Projects\\starlink-landing"],
-      "env": {}
-    }
-  }
-}
