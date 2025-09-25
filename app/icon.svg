@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer ring -->
+  <circle cx="16" cy="16" r="14" stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.8"/>
+  
+  <!-- Middle ring -->
+  <circle cx="16" cy="16" r="10" stroke="#06b6d4" stroke-width="1.5" fill="none" opacity="0.9"/>
+  
+  <!-- Inner circle -->
+  <circle cx="16" cy="16" r="6" fill="#8b5cf6" opacity="0.95"/>
+  
+  <!-- Signal lines -->
+  <path d="M8 8 L12 12 M24 8 L20 12 M8 24 L12 20 M24 24 L20 20" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Central dot -->
+  <circle cx="16" cy="16" r="2" fill="white"/>
+</svg>
