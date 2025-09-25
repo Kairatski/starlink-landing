@@ -1,8 +1,15 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Starlink Landing',
-  description: 'Высокоскоростной спутниковый интернет Starlink в Казахстане',
+  title: 'Starlink Kazakhstan - Высокоскоростной спутниковый интернет',
+  description: 'Подключите Starlink в Казахстане! Высокоскоростной спутниковый интернет до 400 Мбит/с. Глобальное покрытие, простая установка, безлимитный трафик.',
+  keywords: 'Starlink, Казахстан, спутниковый интернет, высокоскоростной интернет, SpaceX, интернет в отдаленных районах',
+  openGraph: {
+    title: 'Starlink Kazakhstan - Высокоскоростной спутниковый интернет',
+    description: 'Подключите Starlink в Казахстане! Высокоскоростной спутниковый интернет до 400 Мбит/с.',
+    type: 'website',
+    locale: 'ru_KZ',
+  },
 };
 
 export default function RootLayout({
@@ -12,6 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#3b82f6" />
+      </head>
       <body>{children}</body>
     </html>
   );

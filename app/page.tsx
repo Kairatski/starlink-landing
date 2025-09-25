@@ -63,7 +63,7 @@ export default function Home() {
           marginBottom: '60px',
           color: 'white',
         }}>
-          Почему выбирают Старлинк?
+          Почему выбирают Starlink Kazakhstan?
         </h2>
         <div style={{
           display: 'grid',
@@ -116,7 +116,7 @@ export default function Home() {
           marginBottom: '60px',
           color: 'white',
         }}>
-          Тарифные планы Старлинк
+          Тарифные планы Starlink Kazakhstan
         </h2>
         <div style={{
           display: 'flex',
@@ -382,7 +382,7 @@ export default function Home() {
         position: 'relative',
         zIndex: 5,
       }}>
-        <p>&copy; {new Date().getFullYear()} Старлинк KZ. Все права защищены.</p>
+        <p>&copy; {new Date().getFullYear()} Starlink Kazakhstan. Все права защищены.</p>
         <p style={{ marginTop: '10px' }}>
           Разработано с ❤️ для быстрого интернета в Казахстане.
         </p>

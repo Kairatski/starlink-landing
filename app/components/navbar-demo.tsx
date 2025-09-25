@@ -1,67 +1,52 @@
 import NavBar from "./ui/navbar";
+import Logo from "./logo";
 
 const menus = [
   {
     id: 1,
-    title: 'Home',
-    url: '/',
+    title: 'Главная',
+    url: '#home',
     dropdown: false,
   },
   {
     id: 2,
-    title: 'Products',
-    url: '/products',
-    dropdown: true,
-    items: [
-      {
-        id: 21,
-        title: 'Electronics',
-        url: '/products/electronics',
-      },
-      {
-        id: 22,
-        title: 'Clothing',
-        url: '/products/clothing',
-      },
-      {
-        id: 23,
-        title: 'Accessories',
-        url: '/products/accessories',
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Services',
-    url: '/services',
-    dropdown: true,
-    items: [
-      {
-        id: 31,
-        title: 'Consulting',
-        url: '/services/consulting',
-      },
-      {
-        id: 32,
-        title: 'Support',
-        url: '/services/support',
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: 'About Us',
-    url: '/about',
+    title: 'Тарифы',
+    url: '#pricing',
     dropdown: false,
   },
   {
-    id: 5,
-    title: 'Contact',
-    url: '/contact',
+    id: 3,
+    title: 'Преимущества',
+    url: '#features',
+    dropdown: false,
+  },
+  {
+    id: 4,
+    title: 'Контакты',
+    url: '#contact',
     dropdown: false,
   },
 ];
 
 export function NavBarDemo() {
-  return <NavBar list={menus} />
+  return (
+    <div style={{ 
+      background: 'rgba(0, 0, 0, 0.8)', 
+      backdropFilter: 'blur(10px)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+      padding: '10px 0'
+    }}>
+      <div style={{ 
+        maxWidth: '1200px', 
+        margin: '0 auto', 
+        padding: '0 20px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <Logo size={35} />
+        <NavBar list={menus} />
+      </div>
+    </div>
+  );
 }
