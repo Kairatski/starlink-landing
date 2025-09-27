@@ -1,160 +1,128 @@
 "use client";
 
-import React, { useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { motion, MotionConfig } from 'framer-motion';
+import * as React from 'react'
 
-interface MenuItem {
+export type IMenu = {
   id: number;
   title: string;
   url: string;
   dropdown?: boolean;
-  items?: MenuItem[];
-}
+  items?: IMenu[];
+};
 
-interface NavBarProps {
-  list: MenuItem[];
-}
+type MenuProps = {
+  list: IMenu[];
+};
 
-export default function NavBar({ list }: NavBarProps) {
-  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+const Menu = ({ list }: MenuProps) => {
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <nav style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      background: 'rgba(15, 23, 42, 0.95)',
-      backdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      padding: '0 20px',
-      fontFamily: 'monospace',
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '70px',
-      }}>
-        {/* Logo */}
-        <div style={{
-          fontSize: '24px',
-          fontWeight: '700',
-          background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}>
-          Старлинк KZ
-        </div>
-
-        {/* Desktop Menu */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '40px',
-        }}>
-          {list.map((item) => (
-            <div
-              key={item.id}
-              style={{ position: 'relative' }}
-              onMouseEnter={() => item.dropdown && setActiveDropdown(item.id)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <a
-                href={item.url}
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  padding: '10px 0',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#3b82f6';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'white';
-                }}
-              >
-                {item.title}
-                {item.dropdown && (
-                  <span style={{ marginLeft: '5px', fontSize: '12px' }}>▼</span>
+    <MotionConfig transition={{ bounce: 0, type: 'tween' }}>
+      <nav style={{ position: 'relative' }}>
+        <ul style={{ display: 'flex', alignItems: 'center', listStyle: 'none', padding: 0, margin: 0 }}>
+          {list?.map((item) => {
+            return (
+              <li key={item.id} style={{ position: 'relative' }}>
+                <Link
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '8px',
+                    padding: '12px 32px',
+                    transition: 'all 0.3s ease',
+                    textDecoration: 'none',
+                    color: 'white',
+                    background: hovered === item?.id ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                  }}
+                  onMouseEnter={() => setHovered(item.id)}
+                  onMouseLeave={() => setHovered(null)}
+                  href={item?.url}
+                >
+                  {item?.title}
+                </Link>
+                {hovered === item?.id && !item?.dropdown && (
+                  <motion.div
+                    layout
+                    layoutId={`cursor`}
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: '2px',
+                      background: 'white',
+                    }}
+                  />
                 )}
-              </a>
-
-              {/* Dropdown Menu */}
-              {item.dropdown && item.items && activeDropdown === item.id && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: '0',
-                  background: 'rgba(15, 23, 42, 0.95)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '12px',
-                  padding: '10px 0',
-                  minWidth: '200px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                  animation: 'slideDown 0.3s ease',
-                }}>
-                  {item.items.map((subItem) => (
-                    <a
-                      key={subItem.id}
-                      href={subItem.url}
+                {item?.dropdown && hovered === item?.id && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: '100%',
+                      zIndex: 1000,
+                    }}
+                    onMouseEnter={() => setHovered(item.id)}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <motion.div
+                      layout
+                      transition={{ bounce: 0 }}
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 10, opacity: 0 }}
                       style={{
-                        display: 'block',
-                        color: 'white',
-                        textDecoration: 'none',
-                        padding: '12px 20px',
-                        fontSize: '14px',
-                        transition: 'all 0.3s ease',
+                        borderRadius: '8px',
+                        marginTop: '16px',
+                        display: 'flex',
+                        width: '256px',
+                        flexDirection: 'column',
+                        background: 'rgba(15, 23, 42, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
-                        e.currentTarget.style.color = '#3b82f6';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent';
-                        e.currentTarget.style.color = 'white';
-                      }}
+                      layoutId={'cursor'}
                     >
-                      {subItem.title}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <button style={{
-          background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '25px',
-          padding: '12px 24px',
-          fontSize: '14px',
-          fontWeight: '600',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-2px)';
-          e.currentTarget.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.3)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = 'none';
-        }}
-        >
-          Заказать
-        </button>
-      </div>
-    </nav>
+                      {item?.items?.map((nav) => {
+                        return (
+                          <motion.a
+                            key={`link-${nav?.id}`}
+                            href={`${nav?.url}`}
+                            style={{
+                              width: '100%',
+                              padding: '16px',
+                              color: 'white',
+                              textDecoration: 'none',
+                              transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = 'transparent';
+                            }}
+                          >
+                            {nav?.title}
+                          </motion.a>
+                        );
+                      })}
+                    </motion.div>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </MotionConfig>
   );
-}
+};
+
+export default Menu;
