@@ -56,8 +56,6 @@ const Menu = ({ list }: MenuProps) => {
                 <AnimatePresence>
                   {hovered === item?.id && !item?.dropdown && (
                     <motion.div
-                      layout
-                      layoutId={`cursor-${item.id}`}
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
                       exit={{ scaleX: 0 }}
@@ -87,11 +85,10 @@ const Menu = ({ list }: MenuProps) => {
                       onMouseLeave={() => setHovered(null)}
                     >
                       <motion.div
-                        layout
-                        transition={{ bounce: 0, duration: 0.2 }}
-                        initial={{ y: 10, opacity: 0, scale: 0.95 }}
-                        animate={{ y: 0, opacity: 1, scale: 1 }}
-                        exit={{ y: 10, opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 10, opacity: 0 }}
                         style={{
                           borderRadius: '8px',
                           marginTop: '16px',
@@ -103,19 +100,14 @@ const Menu = ({ list }: MenuProps) => {
                           border: '1px solid rgba(255, 255, 255, 0.1)',
                           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
                         }}
-                        layoutId={`dropdown-${item.id}`}
                       >
                         {item?.items?.map((nav, index) => {
                           return (
                             <motion.a
                               key={`link-${nav?.id}`}
                               href={`${nav?.url}`}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.05 }}
                               whileHover={{
                                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                                x: 4,
                                 transition: { duration: 0.2 }
                               }}
                               style={{
