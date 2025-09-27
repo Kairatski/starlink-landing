@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion, MotionConfig, AnimatePresence } from 'framer-motion';
 import * as React from 'react'
 
 export type IMenu = {
@@ -27,95 +27,114 @@ const Menu = ({ list }: MenuProps) => {
           {list?.map((item) => {
             return (
               <li key={item.id} style={{ position: 'relative' }}>
-                <Link
-                  style={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '8px',
-                    padding: '12px 32px',
-                    transition: 'all 0.3s ease',
-                    textDecoration: 'none',
-                    color: 'white',
-                    background: hovered === item?.id ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                <motion.div
+                  whileHover={{ 
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    transition: { duration: 0.2 }
                   }}
-                  onMouseEnter={() => setHovered(item.id)}
-                  onMouseLeave={() => setHovered(null)}
-                  href={item?.url}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item?.title}
-                </Link>
-                {hovered === item?.id && !item?.dropdown && (
-                  <motion.div
-                    layout
-                    layoutId={`cursor`}
+                  <Link
                     style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: '2px',
-                      background: 'white',
-                    }}
-                  />
-                )}
-                {item?.dropdown && hovered === item?.id && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: '100%',
-                      zIndex: 1000,
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: '8px',
+                      padding: '12px 32px',
+                      textDecoration: 'none',
+                      color: 'white',
+                      background: 'transparent',
                     }}
                     onMouseEnter={() => setHovered(item.id)}
                     onMouseLeave={() => setHovered(null)}
+                    href={item?.url}
                   >
+                    {item?.title}
+                  </Link>
+                </motion.div>
+                <AnimatePresence>
+                  {hovered === item?.id && !item?.dropdown && (
                     <motion.div
                       layout
-                      transition={{ bounce: 0 }}
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: 10, opacity: 0 }}
+                      layoutId={`cursor-${item.id}`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      exit={{ scaleX: 0 }}
+                      transition={{ duration: 0.2 }}
                       style={{
-                        borderRadius: '8px',
-                        marginTop: '16px',
-                        display: 'flex',
-                        width: '256px',
-                        flexDirection: 'column',
-                        background: 'rgba(15, 23, 42, 0.95)',
-                        backdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '2px',
+                        background: 'white',
+                        transformOrigin: 'left',
                       }}
-                      layoutId={'cursor'}
+                    />
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {item?.dropdown && hovered === item?.id && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '100%',
+                        zIndex: 1000,
+                      }}
+                      onMouseEnter={() => setHovered(item.id)}
+                      onMouseLeave={() => setHovered(null)}
                     >
-                      {item?.items?.map((nav) => {
-                        return (
-                          <motion.a
-                            key={`link-${nav?.id}`}
-                            href={`${nav?.url}`}
-                            style={{
-                              width: '100%',
-                              padding: '16px',
-                              color: 'white',
-                              textDecoration: 'none',
-                              transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = 'transparent';
-                            }}
-                          >
-                            {nav?.title}
-                          </motion.a>
-                        );
-                      })}
-                    </motion.div>
-                  </div>
-                )}
+                      <motion.div
+                        layout
+                        transition={{ bounce: 0, duration: 0.2 }}
+                        initial={{ y: 10, opacity: 0, scale: 0.95 }}
+                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                        exit={{ y: 10, opacity: 0, scale: 0.95 }}
+                        style={{
+                          borderRadius: '8px',
+                          marginTop: '16px',
+                          display: 'flex',
+                          width: '256px',
+                          flexDirection: 'column',
+                          background: 'rgba(15, 23, 42, 0.95)',
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+                        }}
+                        layoutId={`dropdown-${item.id}`}
+                      >
+                        {item?.items?.map((nav, index) => {
+                          return (
+                            <motion.a
+                              key={`link-${nav?.id}`}
+                              href={`${nav?.url}`}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              whileHover={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                x: 4,
+                                transition: { duration: 0.2 }
+                              }}
+                              style={{
+                                width: '100%',
+                                padding: '16px',
+                                color: 'white',
+                                textDecoration: 'none',
+                                borderRadius: '4px',
+                                margin: '2px',
+                              }}
+                            >
+                              {nav?.title}
+                            </motion.a>
+                          );
+                        })}
+                      </motion.div>
+                    </div>
+                  )}
+                </AnimatePresence>
               </li>
             );
           })}
