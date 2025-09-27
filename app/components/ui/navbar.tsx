@@ -22,6 +22,14 @@ const Menu = ({ list }: MenuProps) => {
 
   return (
     <MotionConfig transition={{ bounce: 0, type: 'tween' }}>
+      <div style={{
+        background: 'rgba(0, 255, 0, 0.3)',
+        padding: '2px',
+        fontSize: '10px',
+        marginBottom: '2px'
+      }}>
+        DEBUG: Framer Motion Menu работает
+      </div>
       <nav style={{ position: 'relative' }}>
         <ul style={{ display: 'flex', alignItems: 'center', listStyle: 'none', padding: 0, margin: 0 }}>
           {list?.map((item) => {

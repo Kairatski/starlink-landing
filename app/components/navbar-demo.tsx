@@ -85,6 +85,14 @@ export function NavBarDemo() {
 
         {/* Menu */}
         <div style={{ color: 'white' }}>
+          <div style={{ 
+            background: 'rgba(255, 0, 0, 0.3)', 
+            padding: '5px', 
+            fontSize: '12px',
+            marginBottom: '5px'
+          }}>
+            DEBUG: Анимированное меню загружено
+          </div>
           <Menu list={menuItems} />
         </div>
 
