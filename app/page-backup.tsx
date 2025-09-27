@@ -34,14 +34,14 @@ export default function Home() {
       fontFamily: 'monospace',
       position: 'relative',
     }}>
-      {/* Animated Navigation */}
+      {/* Navigation */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
         <NavBarDemo />
       </div>
 
       {/* Hero Section with Animated Text */}
       <section id="home" style={{
-        marginTop: '70px',
+        marginTop: '70px', // Account for fixed navbar height
         position: 'relative',
         zIndex: 5,
       }}>
@@ -83,58 +83,19 @@ export default function Home() {
                 boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
                 transition: 'all 0.3s ease',
                 transform: 'translateY(0)',
-                cursor: 'pointer',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 15px 40px rgba(59, 130, 246, 0.3)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.3)';
-                
-                // Анимация иконки
-                const icon = e.currentTarget.querySelector('div') as HTMLElement;
-                if (icon) {
-                  icon.style.transform = 'scale(1.2) rotate(5deg)';
-                  icon.style.transition = 'all 0.3s ease';
-                }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.2)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-                
-                // Возврат иконки
-                const icon = e.currentTarget.querySelector('div') as HTMLElement;
-                if (icon) {
-                  icon.style.transform = 'scale(1) rotate(0deg)';
-                }
               }}
             >
-              <div style={{ 
-                fontSize: '4rem', 
-                marginBottom: '20px',
-                transition: 'all 0.3s ease',
-                display: 'inline-block'
-              }}>
-                {feature.icon}
-              </div>
-              <h3 style={{ 
-                fontSize: '24px', 
-                fontWeight: '600', 
-                marginBottom: '10px', 
-                color: 'white',
-                transition: 'color 0.3s ease'
-              }}>
-                {feature.title}
-              </h3>
-              <p style={{ 
-                fontSize: '16px', 
-                color: '#94a3b8',
-                transition: 'color 0.3s ease'
-              }}>
-                {feature.description}
-              </p>
+              <div style={{ fontSize: '4rem', marginBottom: '20px' }}>{feature.icon}</div>
+              <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '10px', color: 'white' }}>{feature.title}</h3>
+              <p style={{ fontSize: '16px', color: 'white' }}>{feature.description}</p>
             </div>
           ))}
         </div>
@@ -176,19 +137,14 @@ export default function Home() {
             transition: 'all 0.3s ease',
             transform: 'translateY(0)',
             position: 'relative',
-            cursor: 'pointer',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-15px) scale(1.03)';
             e.currentTarget.style.boxShadow = '0 20px 50px rgba(59, 130, 246, 0.4)';
-            e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.3)';
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0) scale(1)';
             e.currentTarget.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.3)';
-            e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.15)';
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
           }}
           >
             <div style={{
@@ -202,7 +158,6 @@ export default function Home() {
               fontWeight: '700',
               color: 'white',
               transform: 'rotate(10deg)',
-              boxShadow: '0 4px 15px rgba(245, 158, 11, 0.3)',
             }}>
               Популярный
             </div>
@@ -211,15 +166,14 @@ export default function Home() {
               fontWeight: '700',
               marginBottom: '20px',
               color: 'white',
-              transition: 'color 0.3s ease',
             }}>
               Для Дома и Офиса
             </h3>
             <p style={{ fontSize: '18px', color: 'white', marginBottom: '10px' }}>
-              Абонентская плата: <span style={{ fontWeight: '700', color: '#3b82f6' }}>от 23 000 ₸/мес</span>
+              Абонентская плата: <span style={{ fontWeight: '700', color: 'white' }}>от 23 000 ₸/мес</span>
             </p>
             <p style={{ fontSize: '18px', color: 'white', marginBottom: '30px' }}>
-              Стоимость оборудования: <span style={{ fontWeight: '700', color: '#3b82f6' }}>795 000 ₸</span>
+              Стоимость оборудования: <span style={{ fontWeight: '700', color: 'white' }}>795 000 ₸</span>
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 30px 0', textAlign: 'left', color: 'white' }}>
               <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
@@ -243,16 +197,9 @@ export default function Home() {
               cursor: 'pointer',
               boxShadow: '0 8px 25px rgba(59, 130, 246, 0.4)',
               transition: 'all 0.3s ease',
-              width: '100%',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(59, 130, 246, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.4)';
-            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
             onClick={() => alert('Выбран тариф "Для Дома и Офиса"')}
             >
               Выбрать тариф
@@ -271,19 +218,14 @@ export default function Home() {
             width: '100%',
             transition: 'all 0.3s ease',
             transform: 'translateY(0)',
-            cursor: 'pointer',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
             e.currentTarget.style.boxShadow = '0 15px 40px rgba(59, 130, 246, 0.3)';
-            e.currentTarget.style.border = '1px solid rgba(59, 130, 246, 0.2)';
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0) scale(1)';
             e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.2)';
-            e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
           }}
           >
             <h3 style={{
@@ -291,15 +233,14 @@ export default function Home() {
               fontWeight: '700',
               marginBottom: '20px',
               color: 'white',
-              transition: 'color 0.3s ease',
             }}>
               Для Мобильного Использования (Mini)
             </h3>
             <p style={{ fontSize: '18px', color: 'white', marginBottom: '10px' }}>
-              Абонентская плата: <span style={{ fontWeight: '700', color: '#8b5cf6' }}>52 000 ₸/мес</span>
+              Абонентская плата: <span style={{ fontWeight: '700', color: 'white' }}>52 000 ₸/мес</span>
             </p>
             <p style={{ fontSize: '18px', color: 'white', marginBottom: '30px' }}>
-              Работа в движении: <span style={{ fontWeight: '700', color: '#8b5cf6' }}>до 150 км/ч</span>
+              Работа в движении: <span style={{ fontWeight: '700', color: 'white' }}>до 150 км/ч</span>
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 30px 0', textAlign: 'left', color: 'white' }}>
               <li style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
@@ -317,22 +258,15 @@ export default function Home() {
               fontSize: '16px',
               fontWeight: '600',
               borderRadius: '25px',
-              background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
               color: 'white',
               border: 'none',
               cursor: 'pointer',
-              boxShadow: '0 8px 25px rgba(139, 92, 246, 0.4)',
+              boxShadow: '0 8px 25px rgba(59, 130, 246, 0.4)',
               transition: 'all 0.3s ease',
-              width: '100%',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 12px 30px rgba(139, 92, 246, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 25px rgba(139, 92, 246, 0.4)';
-            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
             onClick={() => alert('Выбран тариф "Для Мобильного Использования"')}
             >
               Выбрать тариф
@@ -428,7 +362,10 @@ export default function Home() {
             cursor: 'pointer',
             boxShadow: '0 10px 30px rgba(59, 130, 246, 0.4)',
             transition: 'all 0.3s ease',
-          }}>
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}
+          >
             Отправить заявку
           </button>
         </form>
